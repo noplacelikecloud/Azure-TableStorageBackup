@@ -145,6 +145,7 @@ resource function 'Microsoft.Web/sites/functions@2022-03-01' = {
     files: {
       'run.ps1' : loadTextContent('../FunctionApp/DailyBackup/run.ps1')
       '../requirements.psd1' : loadTextContent('../FunctionApp/requirements.psd1')
+      '../host.json' : loadTextContent('../FunctionApp/host.json')
     }
   }
 }
