@@ -9,6 +9,18 @@ param AppName string
 param location string = resourceGroup().location
 param BackupSchedule string = '0 3 * * * *'
 
+@description('The name of the storage account where the source storage account is located')
+param StorageAccountNameSource string
+
+@description('The name of the storage account where the target storage account is located')
+param StorageAccountNameTarget string
+
+@description('The name of the resource group where the source storage account is located')
+param RGNameSource string
+
+@description('The name of the resource group where the target storage account is located')
+param RGNameTarget string
+
 
 // Define variables
 var storageAccountName = '${uniqueString(resourceGroup().id)}azfunctions'
@@ -73,19 +85,19 @@ resource azureFunctionApp 'Microsoft.Web/sites@2020-12-01' = {
         }
         {
           name: 'StorageAccountNameSource'
-          value: '<Fill in your source storage account name>'
+          value: StorageAccountNameSource
         }
         {
           name: 'StorageAccountNameTarget'
-          value: '<Fill in your target storage account name>'
+          value: StorageAccountNameTarget
         }
         {
           name: 'RGNameSource'
-          value: '<Fill in your source resource group name>'
+          value: RGNameSource
         }
         {
           name: 'RGNameTarget'
-          value: '<Fill in your target resource group name>'
+          value: RGNameTarget
         }
         {
           name: 'BackupSchedule'

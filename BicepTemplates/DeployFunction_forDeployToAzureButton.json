@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.15.31.15270",
-      "templateHash": "3653250789636531468"
+      "templateHash": "12138491834634949591"
     }
   },
   "parameters": {
@@ -19,6 +19,30 @@
     "BackupSchedule": {
       "type": "string",
       "defaultValue": "0 3 * * * *"
+    },
+    "StorageAccountNameSource": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the storage account where the source storage account is located"
+      }
+    },
+    "StorageAccountNameTarget": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the storage account where the target storage account is located"
+      }
+    },
+    "RGNameSource": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the resource group where the source storage account is located"
+      }
+    },
+    "RGNameTarget": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the resource group where the target storage account is located"
+      }
     }
   },
   "variables": {
@@ -90,19 +114,19 @@
             },
             {
               "name": "StorageAccountNameSource",
-              "value": "<Fill in your source storage account name>"
+              "value": "[parameters('StorageAccountNameSource')]"
             },
             {
               "name": "StorageAccountNameTarget",
-              "value": "<Fill in your target storage account name>"
+              "value": "[parameters('StorageAccountNameTarget')]"
             },
             {
               "name": "RGNameSource",
-              "value": "<Fill in your source resource group name>"
+              "value": "[parameters('RGNameSource')]"
             },
             {
               "name": "RGNameTarget",
-              "value": "<Fill in your target resource group name>"
+              "value": "[parameters('RGNameTarget')]"
             },
             {
               "name": "BackupSchedule",
