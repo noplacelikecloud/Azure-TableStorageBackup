@@ -9,8 +9,8 @@ The function will call your storage account and iterate through all tables in it
 Every partition key inside the table will be catched and converted to a JSON file.
 
 After finishing, the target backup file share will contain JSON-Files with your table storage data, which can be:
-* Snapshotted
-* Backupped to a Recovery Services Vault (in Preview)
+* snapshotted
+* backed up to a Recovery Services Vault (in Preview)
 
 ### Deployment
 
