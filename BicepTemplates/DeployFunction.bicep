@@ -7,7 +7,7 @@
 // Define parameters
 param AppName string
 param location string = resourceGroup().location
-param BackupSchedule string = '0 3 * * * *'
+param BackupSchedule string = '0 0 3 * * *'
 
 @description('The name of the storage account where the source storage account is located')
 param StorageAccountNameSource string
