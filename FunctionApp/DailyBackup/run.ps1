@@ -34,17 +34,20 @@ if ($Timer) {
 
     # Get the Storage Account Context
     try {
+        #Check if Storage Accounts are available; stop if not
+        Get-AzStorageAccount -Name $StorageAccountNameTarget -ResourceGroupName $RGNameTarget -ErrorAction Stop | Out-Null
+        Get-AzStorageAccount -Name $StorageAccountNameSource -ResourceGroupName $RGNameSource -ErrorAction Stop | Out-Null
+
         #Get Context
         Write-Debug "Get Context of Storage Accounts..."
-        $StorageAccountContext = (Get-AzStorageAccount -Name $StorageAccountNameSource -ResourceGroupName $RGNameSource).Context
+        $StorageAccountContext = (Get-AzStorageAccount -Name $StorageAccountNameSource -ResourceGroupName $RGNameSource -ErrorAction Stop).Context
         $FileShareSAContext = (Get-AzStorageAccount -Name $StorageAccountNameTarget -ResourceGroupName $RGNameTarget).Context
-
-        Get-AzStorageAccount -Name $StorageAccountNameTarget -ResourceGroupName $RGNameSource | Out-Null
 
         #Iterate through all the tables in the storage account -> Folder level in File Share
         $Tables = Get-AzStorageTable -Context $StorageAccountContext
     } catch {
         Write-Error -Message "Failed to get storage accounts. Check if storage account names and permissions are correct: $_"
+        exit 1
     }
 
     #Check if File Share exists
