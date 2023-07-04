@@ -21,6 +21,13 @@ param RGNameSource string
 @description('The name of the resource group where the target storage account is located')
 param RGNameTarget string
 
+@description('Choose your function plan. If you want to backup via private endpoint, please choose Premium. Else you should choose Consumption')
+@allowed([
+    'Consumption'
+    'Premium'
+])
+param FunctionPlan string
+
 
 // Define variables
 var storageAccountName = '${uniqueString(resourceGroup().id)}azfunctions'
@@ -28,6 +35,14 @@ var storageAccountType = 'Standard_LRS'
 var FunctionAppName = AppName
 var HostPlanName = '${AppName}-plan'
 var appInsightsName = '${AppName}-Insights'
+
+var v_sku = FunctionPlan == 'Consumption' ? {
+  name: 'Y1'
+  tier: 'Dynamic'
+}:{
+  name: 'EP1'
+  tier: 'Dynamic'
+}
 
 
 // Define resources
@@ -43,10 +58,7 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2021-08-01' = {
 resource hostPlan 'Microsoft.Web/serverfarms@2020-12-01' = {
   name: HostPlanName
   location: location
-  sku: {
-    name: 'EP1'
-    tier: 'Dynamic'
-  }
+  sku: v_sku
   properties: {}
 }
 
